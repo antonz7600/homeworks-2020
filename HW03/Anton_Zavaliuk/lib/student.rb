@@ -1,17 +1,26 @@
-class Student
-  attr_accessor :name, :mark, :amount
+require_relative 'postgres/api'
 
-  def initialize(name, mark, amount)
+class Student
+  attr_accessor :name, :mark, :amount, :tutor, :surname
+
+  def initialize(name, surname, mark, amount)
     @name = name
+    @surname = surname
     @mark = mark
     @amount = amount
+    @tutor = []
+    post_gres = PostGres.instance
+    post_gres.add_student(self)
+  end
+
+  def add_mark(mark)
+    @mark = (@mark * @amount + mark) / (@amount + 1)
+    @amount += 1
+    post_gres = PostGres.instance
+    post_gres.update_student(self)
+  end
+
+  def submit_homework!(data)
+    tutor.each { |teacher| teacher.notify(self, data) }
   end
 end
-
-student = Student.new('Antt', 5, 2)
-post_gres = PostGres.instance
-# post_gres.init
-post_gres.add(student)
-student2 = Student.new('Antt', 6, 3)
-post_gres.update(student2)
-post_gres.delete(student2)
