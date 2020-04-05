@@ -13,7 +13,7 @@ class Mentor
     post_gres.add_mentor(self)
   end
 
-  def add_tutor(student)
+  def subscribe_to(student)
     @following.append(student)
     student.tutor.append(self)
   end
