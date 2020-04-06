@@ -1,13 +1,8 @@
 require 'pg'
+require 'singleton'
 
 class PostGres # rubocop:disable Metrics/ClassLength
-  @instance = new
-
-  private_class_method :new
-
-  class << self
-    attr_reader :instance
-  end
+  include Singleton
 
   def connect
     connection = PG.connect dbname: 'rubyhw',
