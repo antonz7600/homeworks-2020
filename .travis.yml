@@ -6,5 +6,6 @@ cache: bundler
 before_install:
   - gem update --system
   - gem install rubocop -v 0.80.1
+  - gem install rubocop-rspec -v 1.38.1
 script:
   - rubocop
