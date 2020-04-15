@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'lib/array'
 
 # it is JUST small test, all rspec tests are inside test folder

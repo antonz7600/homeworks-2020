@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Custom array implementation
 module CustomArray
   def my_each
     i = 0
