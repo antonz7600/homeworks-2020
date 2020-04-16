@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+=======
+# frozen_string_literal: true
+
+# Custom array implementation
+>>>>>>> f3e4b569a5afcc0912545238b2e30b7db7661186
 module CustomArray
   def my_each
     i = 0
