@@ -17,24 +17,39 @@ describe(Array) do
     context 'when is given non-empty array' do
       subject(:test_array) { described_class.new([2, 5]) }
 
-      it 'expected: Current number is: X' do
-        test_array.my_each { |n| test_output << "Current number is: #{n}" }
+      let(:test_output) do
+        tmp_array = []
+        test_array.my_each { |n| tmp_array << "Current number is: #{n}" }
+        return tmp_array
+      end
+
+      let(:test_output_power) do
+        tmp_array = []
+        test_array.my_each do |n|
+          tmp_array << "Second power of: #{n} is: #{n**2} "
+        end
+        return tmp_array
+      end
+
+      it 'prints: Current number is: X' do
         expect(test_output).to eq(expected_output)
       end
 
-      it 'expected: Second power of: X is: X^2' do
-        test_array.my_each do |n|
-          test_output << "Second power of: #{n} is: #{n**2} "
-        end
-        expect(test_output).to eq(expected_output_power)
+      it 'prints: Second power of: X is: X^2' do
+        expect(test_output_power).to eq(expected_output_power)
       end
     end
 
     context 'when is given empty array' do
       subject(:test_array) { described_class.new([]) }
 
-      it 'expected: []' do
-        test_array.my_each { |n| test_output << "Current number is: #{n}" }
+      let(:test_output) do
+        tmp_array = []
+        test_array.my_each { |n| tmp_array << "Current number is: #{n}" }
+        return tmp_array
+      end
+
+      it 'selects nothing' do
         expect(test_output).to eq(expected_empty_output)
       end
     end
@@ -47,28 +62,37 @@ describe(Array) do
     context 'when is given non-empty array' do
       subject(:test_array) { described_class.new([1, 2, 3, 4]) }
 
-      it 'expected: incresed value by 1' do
-        test_output = test_array.my_map do |n|
+      let(:test_output_add) do
+        test_array.my_map do |n|
           n + 1
         end
-        expect(test_output).to eq(expected_output_add)
       end
 
-      it 'expected: multiplied value in 5 times' do
-        test_output = test_array.my_map do |n|
+      let(:test_output_multiply) do
+        test_array.my_map do |n|
           n * 5
         end
-        expect(test_output).to eq(expected_output_multiply)
+      end
+
+      it 'increses value by 1' do
+        expect(test_output_add).to eq(expected_output_add)
+      end
+
+      it 'multiplies value in 5 times' do
+        expect(test_output_multiply).to eq(expected_output_multiply)
       end
     end
 
     context 'when is given empty array' do
       subject(:test_array) { described_class.new([]) }
 
-      it 'expected: []' do
-        test_output = test_array.my_map do |n|
+      let(:test_output) do
+        test_array.my_map do |n|
           n + 1
         end
+      end
+
+      it 'selects nothing' do
         expect(test_output).to eq(expected_empty_output)
       end
     end
@@ -83,28 +107,37 @@ describe(Array) do
         described_class.new([1, 5, 8, 3, 24, 574, 'fasf', true, 'exc'])
       end
 
-      it 'expected: selected only numbers' do
-        test_output = test_array.my_select do |n|
+      let(:test_output_numbers) do
+        test_array.my_select do |n|
           n.class == Integer
         end
-        expect(test_output).to eq(expected_output_numbers)
       end
 
-      it 'expected: selected numbers > 300' do
-        test_output = test_array.my_select do |n|
+      let(:test_output_big_numbers) do
+        test_array.my_select do |n|
           (n.class == Integer) && (n > 300)
         end
-        expect(test_output).to eq(expected_output_big_numbers)
+      end
+
+      it 'selects only numbers' do
+        expect(test_output_numbers).to eq(expected_output_numbers)
+      end
+
+      it 'selects numbers > 300' do
+        expect(test_output_big_numbers).to eq(expected_output_big_numbers)
       end
     end
 
     context 'when is given empty array' do
       subject(:test_array) { described_class.new([]) }
 
-      it 'expected: []' do
-        test_output = test_array.my_select do |n|
+      let(:test_output) do
+        test_array.my_select do |n|
           n.class == Integer
         end
+      end
+
+      it 'selects nothing' do
         expect(test_output).to eq(expected_empty_output)
       end
     end
