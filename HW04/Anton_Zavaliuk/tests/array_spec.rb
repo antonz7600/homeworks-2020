@@ -17,40 +17,36 @@ describe(Array) do
     context 'when is given non-empty array' do
       subject(:test_array) { described_class.new([2, 5]) }
 
-      let(:test_output) do
-        tmp_array = []
-        test_array.my_each { |n| tmp_array << "Current number is: #{n}" }
-        return tmp_array
-      end
+      let(:tmp_array) { [] }
+      let(:tmp_array_power) { [] }
 
-      let(:test_output_power) do
-        tmp_array = []
+      before do
+        test_array.my_each { |n| tmp_array << "Current number is: #{n}" }
         test_array.my_each do |n|
-          tmp_array << "Second power of: #{n} is: #{n**2} "
+          tmp_array_power << "Second power of: #{n} is: #{n**2} "
         end
-        return tmp_array
       end
 
       it 'prints: Current number is: X' do
-        expect(test_output).to eq(expected_output)
+        expect(tmp_array).to eq(expected_output)
       end
 
       it 'prints: Second power of: X is: X^2' do
-        expect(test_output_power).to eq(expected_output_power)
+        expect(tmp_array_power).to eq(expected_output_power)
       end
     end
 
     context 'when is given empty array' do
       subject(:test_array) { described_class.new([]) }
 
-      let(:test_output) do
-        tmp_array = []
+      let(:tmp_array) { [] }
+
+      before do
         test_array.my_each { |n| tmp_array << "Current number is: #{n}" }
-        return tmp_array
       end
 
       it 'selects nothing' do
-        expect(test_output).to eq(expected_empty_output)
+        expect(tmp_array).to eq(expected_empty_output)
       end
     end
   end
@@ -60,36 +56,26 @@ describe(Array) do
     let(:expected_output_multiply) { [5, 10, 15, 20] }
 
     context 'when is given non-empty array' do
-      subject(:test_array) { described_class.new([1, 2, 3, 4]) }
-
-      let(:test_output_add) do
-        test_array.my_map do |n|
-          n + 1
-        end
+      let(:test_array) do
+        described_class.new([1, 2, 3, 4]).my_map { |n| n + 1 }
       end
 
-      let(:test_output_multiply) do
-        test_array.my_map do |n|
-          n * 5
-        end
+      let(:test_array_multiply) do
+        described_class.new([1, 2, 3, 4]).my_map { |n| n * 5 }
       end
 
       it 'increses value by 1' do
-        expect(test_output_add).to eq(expected_output_add)
+        expect(test_array).to eq(expected_output_add)
       end
 
       it 'multiplies value in 5 times' do
-        expect(test_output_multiply).to eq(expected_output_multiply)
+        expect(test_array_multiply).to eq(expected_output_multiply)
       end
     end
 
     context 'when is given empty array' do
-      subject(:test_array) { described_class.new([]) }
-
-      let(:test_output) do
-        test_array.my_map do |n|
-          n + 1
-        end
+      subject(:test_array) do
+        described_class.new([]).my_map { |n| n + 1 }
       end
 
       it 'selects nothing' do
@@ -129,16 +115,12 @@ describe(Array) do
     end
 
     context 'when is given empty array' do
-      subject(:test_array) { described_class.new([]) }
-
-      let(:test_output) do
-        test_array.my_select do |n|
-          n.class == Integer
-        end
+      subject(:test_array) do
+        described_class.new([]).my_select { |n| n.class == Integer }
       end
 
       it 'selects nothing' do
-        expect(test_output).to eq(expected_empty_output)
+        expect(test_array).to eq(expected_empty_output)
       end
     end
   end
